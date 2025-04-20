@@ -1,4 +1,4 @@
-name: Full Stack CI
+name: Full Stack CI/CD
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
           - 27017:27017
 
     steps:
-      - name:  Checkout code
+      - name: 📦 Checkout code
         uses: actions/checkout@v3
 
       - name: 🔧 Set up Node.js
@@ -27,38 +27,32 @@ jobs:
         with:
           node-version: '18'
 
-      - name:  Install backend dependencies
+      - name: 📥 Install backend dependencies
         working-directory: ./server
-        run: npm install
+        run: npm ci
 
-      - name:  Lint or test backend (optional)
+      - name: ✅ Run backend tests or lint (optional)
         working-directory: ./server
         run: echo "No tests configured"
 
-      - name:  Install frontend dependencies
+      - name: 📥 Install frontend dependencies
         working-directory: ./client
-        run: npm install
+        run: npm ci
 
-      - name:  Build frontend
+      - name: 🛠️ Build frontend
         working-directory: ./client
         run: npm run build
 
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with: 
-          name: production-files
-          path: ./build
-
-      - name: Deploy to Github Pages
+      - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.CHHAYA_02 }}
-          publish_dir: ./build
-          
-
-      # Optional: if you want to build Docker images
-      # - name: 🐳 Build Docker images
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use default GitHub token
+          publish_dir: ./client/dist                 # Use correct path for Vite build
+         
+      # Optional: Build Docker image (uncomment if needed)
+      # - name: 🐳 Build Docker image
       #   run: docker compose build
 
-      # Optional: push to Render / Docker Hub or any deployment target
-      
+      # Optional: Push Docker image or deploy (uncomment and configure if needed)
+      # - name: 📦 Push Docker image
+      #   run: docker push your-docker-repo/image-name
