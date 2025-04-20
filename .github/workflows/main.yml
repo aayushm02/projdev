@@ -46,7 +46,7 @@ jobs:
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use default GitHub token
+          github_token: ${{ secrets.CHHAYA_02 }}  # Use default GitHub token
           publish_dir: ./client/dist                 # Use correct path for Vite build
          
       # Optional: Build Docker image (uncomment if needed)
