@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const { initializeSocket } = require('./socket');
-require('dotenv').config();
+
 
 dotenv.config();
 
