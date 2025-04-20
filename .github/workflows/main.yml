@@ -29,7 +29,7 @@ jobs:
 
       - name: 📥 Install backend dependencies
         working-directory: ./server
-        run: npm ci
+        run: npm install
 
       - name: ✅ Run backend tests or lint (optional)
         working-directory: ./server
