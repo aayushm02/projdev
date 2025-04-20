@@ -1,0 +1,64 @@
+name: Full Stack CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: development
+
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+
+    steps:
+      - name:  Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🔧 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name:  Install backend dependencies
+        working-directory: ./server
+        run: npm install
+
+      - name:  Lint or test backend (optional)
+        working-directory: ./server
+        run: echo "No tests configured"
+
+      - name:  Install frontend dependencies
+        working-directory: ./client
+        run: npm install
+
+      - name:  Build frontend
+        working-directory: ./client
+        run: npm run build
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with: 
+          name: production-files
+          path: ./build
+
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.CHHAYA_02 }}
+          publish_dir: ./build
+          
+
+      # Optional: if you want to build Docker images
+      # - name: 🐳 Build Docker images
+      #   run: docker compose build
+
+      # Optional: push to Render / Docker Hub or any deployment target
+      
