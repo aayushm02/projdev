@@ -19,31 +19,31 @@ jobs:
           - 27017:27017
 
     steps:
-      - name: 📦 Checkout code
+      - name:  Checkout code
         uses: actions/checkout@v3
 
-      - name: 🔧 Set up Node.js
+      - name:  Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: 📥 Install backend dependencies
+      - name:  Install backend dependencies
         working-directory: ./server
         run: npm install
 
-      - name: ✅ Run backend tests or lint (optional)
+      - name:  Run backend tests or lint (optional)
         working-directory: ./server
         run: echo "No tests configured"
 
-      - name: 📥 Install frontend dependencies
+      - name:  Install frontend dependencies
         working-directory: ./client
         run: npm install
 
-      - name: 🛠️ Build frontend
+      - name:  Build frontend
         working-directory: ./client
         run: npm run build
 
-      - name: 🚀 Deploy to GitHub Pages
+      - name:  Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.CHHAYA_02 }}  
